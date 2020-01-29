@@ -6,6 +6,9 @@ import Modal from "react-bootstrap/Modal";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import { BrowserRouter as Router, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+const mapStateToProps = state => state;
 
 class CartIndicator extends Component {
   constructor(props) {
@@ -21,6 +24,7 @@ class CartIndicator extends Component {
   };
 
   render() {
+    console.log("PROPS", this.props);
     return (
       <>
         <div className="cart mt-2">
@@ -33,7 +37,9 @@ class CartIndicator extends Component {
                   onClick={() => this.props.history.push("/cart")}
                 >
                   <FontAwesomeIcon icon={faShoppingCart} id="cartIcon" />
-                  <span className="ml-2">0</span>
+                  <span className="ml-2">
+                    {this.props.cart.products.length}
+                  </span>
                 </Button>
               </Router>
             </div>
@@ -83,4 +89,4 @@ class CartIndicator extends Component {
   }
 }
 
-export default withRouter(CartIndicator);
+export default withRouter(connect(mapStateToProps)(CartIndicator));
