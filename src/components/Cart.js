@@ -3,17 +3,21 @@ import { books } from "../data/books";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+
+const mapStateToProps = state => state;
+
+const mapDispatchToProps = dispatch => ({
+  removeFromCart: id =>
+    dispatch({
+      type: "REMOVE_ITEM_TO_CART",
+      payload: id
+    })
+});
 
 class Cart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cart: []
-    };
-  }
-
   render() {
-    const cart = this.state.cart.map(bookId =>
+    const cart = this.props.cart.products.map(bookId =>
       books.find(book => book.id === bookId)
     );
 
@@ -22,7 +26,10 @@ class Cart extends Component {
         <ul className="col-sm-12" style={{ listStyle: "none" }}>
           {cart.map((book, i) => (
             <li key={i} className="my-4">
-              <Button variant="danger" onClick={() => {}}>
+              <Button
+                variant="danger"
+                onClick={() => this.props.removeFromCart(book.id)}
+              >
                 <FontAwesomeIcon icon={faTrash} id="trashIcon" />
               </Button>
               <img
@@ -48,4 +55,4 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

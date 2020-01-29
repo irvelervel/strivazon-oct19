@@ -4,6 +4,9 @@ import myReducer from "../reducers";
 const initialState = {
   cart: {
     products: []
+  },
+  user: {
+    username: null
   }
 };
 

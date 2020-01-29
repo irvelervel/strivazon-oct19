@@ -53,12 +53,16 @@ class BookDetail extends Component {
               <span className="font-weight-bold">Price:</span>{" "}
               {this.state.book.price}
             </p>
-            <Button
-              color="primary"
-              onClick={() => this.props.addToCart(this.state.book.id)}
-            >
-              BUY
-            </Button>
+            {this.props.user && this.props.user.username ? (
+              <Button
+                color="primary"
+                onClick={() => this.props.addToCart(this.state.book.id)}
+              >
+                BUY
+              </Button>
+            ) : (
+              <span>You need to be logged in to buy</span>
+            )}
           </div>
         </div>
       </div>
