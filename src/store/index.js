@@ -1,5 +1,6 @@
-import { createStore } from "redux";
-import myReducer from "../reducers";
+import { createStore, combineReducers } from "redux";
+import cartReducer from "../reducers/cart";
+import userReducer from "../reducers/user";
 
 const initialState = {
   cart: {
@@ -10,9 +11,14 @@ const initialState = {
   }
 };
 
+const combinedReducer = combineReducers({
+  cart: cartReducer,
+  user: userReducer
+});
+
 export default function configureStore() {
   return createStore(
-    myReducer,
+    combinedReducer,
     initialState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
