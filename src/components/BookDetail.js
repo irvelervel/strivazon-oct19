@@ -9,8 +9,23 @@ const mapDispatchToProps = dispatch => ({
     dispatch({
       type: "ADD_ITEM_TO_CART",
       payload: id
-    })
+    }),
+  addToCartThunk: id => dispatch(addItemWithThunk(id))
 });
+
+const addItemWithThunk = id => {
+  return async (dispatch, getState) => {
+    //async code, timeouts, ecc.
+    const products = await fetch("https://api.myjson.com/bins/18fh4d");
+    console.log("current state", getState());
+    console.log("products", products);
+    //fetch data
+    dispatch({
+      type: "ADD_ITEM_TO_CART",
+      payload: id
+    });
+  };
+};
 
 class BookDetail extends Component {
   constructor(props) {
@@ -56,7 +71,7 @@ class BookDetail extends Component {
             {this.props.user && this.props.user.username ? (
               <Button
                 color="primary"
-                onClick={() => this.props.addToCart(this.state.book.id)}
+                onClick={() => this.props.addToCartThunk(this.state.book.id)}
               >
                 BUY
               </Button>

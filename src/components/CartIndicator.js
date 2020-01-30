@@ -32,7 +32,7 @@ class CartIndicator extends Component {
   };
 
   render() {
-    console.log("PROPS", this.props);
+    // console.log("PROPS", this.props);
     return (
       <>
         <div className="cart mt-2">
